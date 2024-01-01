@@ -197,38 +197,45 @@ if __name__ == "__main__":
     db_file = "restaurant.db"
 
 conn = create_connection(db_file)
-if conn is not None:
-    execute_sql(conn, create_role_sql)
-    execute_sql(conn, create_cooks_sql)
 
-    role = ("Head Chef", "Jeden nad wszystkimi")
-    add_role(conn, role)
 
-    role = ("Sous Chef", "Drugi nad wszystkimi")
-    add_role(conn, role)
+def main():
+    if conn is not None:
+        execute_sql(conn, create_role_sql)
+        execute_sql(conn, create_cooks_sql)
 
-    role = ("Noob", "Nowy ziomek na zimnej")
-    add_role(conn, role)
+        role = ("Head Chef", "Jeden nad wszystkimi")
+        add_role(conn, role)
 
-    cook = (1, "Jan", "Jankowski", "1990-05-13")
-    add_cook(conn, cook)
+        role = ("Sous Chef", "Drugi nad wszystkimi")
+        add_role(conn, role)
 
-    cook = (2, "Michał", "Czeski", "1990-08-13")
-    add_cook(conn, cook)
+        role = ("Noob", "Nowy ziomek na zimnej")
+        add_role(conn, role)
 
-    cook = (3, "Stanisław", "Wielki", "1999-12-21")
-    add_cook(conn, cook)
+        cook = (1, "Jan", "Jankowski", "1990-05-13")
+        add_cook(conn, cook)
 
-    select_role_by_name(conn, "Head Chef")
+        cook = (2, "Michał", "Czeski", "1990-08-13")
+        add_cook(conn, cook)
 
-    select_all(conn, "roles")
-    select_all(conn, "cooks")
+        cook = (3, "Stanisław", "Wielki", "1999-12-21")
+        add_cook(conn, cook)
 
-    select_where(conn, "cooks", nazwisko="Wielki")
-    update(conn, "cooks", 5, imie="Alfred")
-    select_where(conn, "cooks", nazwisko="Wielki")
-    delete_where(conn, "cooks", imie="Stanisław")
-    delete_all(conn, "cooks")
+        select_role_by_name(conn, "Head Chef")
 
-    conn.commit()
-    conn.close()
+        select_all(conn, "roles")
+        select_all(conn, "cooks")
+
+        select_where(conn, "cooks", nazwisko="Wielki")
+        update(conn, "cooks", 5, imie="Alfred")
+        select_where(conn, "cooks", nazwisko="Wielki")
+        delete_where(conn, "cooks", imie="Stanisław")
+        delete_all(conn, "cooks")
+
+        conn.commit()
+        conn.close()
+
+
+if __name__ == "__main__":
+    main()
