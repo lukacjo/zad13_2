@@ -172,7 +172,7 @@ def delete_all(conn, table):
     print(f"Deleted {table}")
 
 
-if __name__ == "__main__":
+def main():
     create_role_sql = """
             -- roles table
             CREATE TABLE IF NOT EXISTS roles (
@@ -233,3 +233,7 @@ if __name__ == "__main__":
 
         conn.commit()
         conn.close()
+
+
+if __name__ == "__main__":
+    main()
