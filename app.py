@@ -196,10 +196,8 @@ if __name__ == "__main__":
 
     db_file = "restaurant.db"
 
-conn = create_connection(db_file)
+    conn = create_connection(db_file)
 
-
-def main():
     if conn is not None:
         execute_sql(conn, create_role_sql)
         execute_sql(conn, create_cooks_sql)
@@ -235,7 +233,3 @@ def main():
 
         conn.commit()
         conn.close()
-
-
-if __name__ == "__main__":
-    main()
