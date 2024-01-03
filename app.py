@@ -172,16 +172,6 @@ def delete_all(conn, table):
     print(f"Deleted {table}")
 
 
-def get_role_id_by_name(conn, role_name):
-    cur = conn.cursor()
-    cur.execute("SELECT id FROM roles WHERE nazwa=?", (role_name,))
-    row = cur.fetchone()
-    if row:
-        return row[0]
-    else:
-        return None
-
-
 def main():
     create_role_sql = """
             -- roles table
@@ -212,17 +202,14 @@ def main():
         execute_sql(conn, create_role_sql)
         execute_sql(conn, create_cooks_sql)
 
-        role = ("Head Chef", "Jeden nad wszystkimi")
-        add_role(conn, role)
+        role_head_chef = add_role(conn, ("Head Chef", "Jeden nad wszystkimi"))
 
-        role = ("Sous Chef", "Drugi nad wszystkimi")
-        add_role(conn, role)
+        role_sous_chef = add_role(conn, ("Sous Chef", "Drugi nad wszystkimi"))
 
-        role = ("Noob", "Nowy ziomek na zimnej")
-        add_role(conn, role)
+        role_noob = add_role(conn, ("Noob", "Nowy ziomek na zimnej"))
 
         cook = (
-            get_role_id_by_name(conn, "Head Chef"),
+            role_head_chef,
             "Jan",
             "Jankowski",
             "1990-05-13",
@@ -230,14 +217,14 @@ def main():
         add_cook(conn, cook)
 
         cook = (
-            get_role_id_by_name(conn, "Sous Chef"),
+            role_sous_chef,
             "Michał",
             "Czeski",
             "1990-08-13",
         )
         add_cook(conn, cook)
 
-        cook = (get_role_id_by_name(conn, "Noob"), "Stanisław", "Wielki", "1999-12-21")
+        cook = (role_noob, "Stanisław", "Wielki", "1999-12-21")
         add_cook(conn, cook)
 
         select_role_by_name(conn, "Head Chef")
